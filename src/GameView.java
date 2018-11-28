@@ -60,6 +60,15 @@ public class GameView implements View {
 		}
 	}
 	
+	public void displayQuestionMenu() {
+		
+		List<EditQuestionMenu> menu = Arrays.asList(EditQuestionMenu.values());
+		for(int i = 0; i< menu.size();i++) {
+			System.out.println(menu.get(i).getOption());
+		}
+		
+	}
+	
 	public void displayAdminMenu() {
 		
 		List<AdminMenu> menu = Arrays.asList(AdminMenu.values());
@@ -84,7 +93,7 @@ public class GameView implements View {
 				
 			}else {
 				System.out.println("Your result in category: " + category.category);
-				System.out.println("You got " + category.correcAnswers + " correct and " + category.incorrectAnswers + " wrong answers \n");
+				System.out.println("You got " + category.correcAnswers + " correct and " + category.incorrectAnswers + " wrong answers");
 			}
 			
 		}
@@ -100,7 +109,7 @@ public class GameView implements View {
 		
 	}
 
-	public Question getAnswersFromUser() {
+	public Question addQuestion() {
 		
 		
 		List<Answer> answers = new ArrayList<>();
@@ -111,7 +120,7 @@ public class GameView implements View {
 		for(int i = 1; i <= 4; i++) {
 			
 			displayMessage("Insert possible answer number "+ i);
-			String text = scan.next();
+			String text = getStringFromUser();
 			Answer possible = new Answer();
 			possible.setText(text);
 			possible.setAnswerPosition(i);
@@ -137,8 +146,8 @@ public class GameView implements View {
 			displayMessage(i + ".- " + question.getText());
 			i++;
 		}
-		int input = scan.nextInt();
-		UserAnswer answer = new UserAnswer(input);
+		int num = Integer.parseInt(scan.next());
+		UserAnswer answer = new UserAnswer(num);
 		
 		return answer;
 		

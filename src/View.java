@@ -10,6 +10,8 @@ public interface View {
 	
 	public void displayErrorMessage(String text);
 	
+	public void displayQuestionMenu();
+	
 	public void displayMainMenu();
 	
 	public void displayAdminMenu();
@@ -22,8 +24,10 @@ public interface View {
 	
 	public String getStringFromUser();
 	
-	public Question getAnswersFromUser();
+	public Question addQuestion();
 	
 	public UserAnswer displayAllQuestion(List<Question> questions);
+	
+	public void closeScanner();
 	
 }

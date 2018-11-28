@@ -11,7 +11,6 @@ public class GameController {
 	public static List<Category> categories = new ArrayList<>();
 	public static int correctAnswers = 0;
 	public static int incorrectAnswers = 0;
-	//public static String text;
 
 	private static boolean inputIntegerValid(int answer, int left, int right) {
 		
@@ -43,8 +42,6 @@ public class GameController {
 		
 		int main = -1;
 		
-		
-		
 		while(main!=0) {
 			
 			view.displayMainMenu();
@@ -55,10 +52,6 @@ public class GameController {
 			switch(main) {
 			
 			case 1:{
-				
-//				view.displayMessage("Choose a category to play:");
-//				view.displayCategoryMenu();
-//				input = scan.nextInt();
 				
 				while(input!=0){
 					
@@ -125,20 +118,13 @@ public class GameController {
 								}
 								
 							}
-							//view.displayMessage("Your results in category: " + category.getCategory());
+							
 							view.displayMessage("You get "+ category.correcAnswers + " correct answers and " + 
 												category.incorrectAnswers +" incorrect answers");
 						}
-						
-						//category = null;
-						//view.displayCategoryMenu();
-						//input = scan.nextInt();
-					
 					
 				}// end of while
-				
-				
-				
+
 			}
 			break;
 			
@@ -171,45 +157,105 @@ public class GameController {
 						questions = category.questions;
 					}
 					break;
+					
+					case 0:{
+						view.displayMessage("Are you sure you want to quit? enter Enter 0 to confirm, or other value to continue.");
+						input = scan.nextInt();
+						if(input == 0) {
+								view.displayMessage("You exited");
+						}else {
+							input = -1;
+						}
+					}
 					}// end of switch of the category the admin wants to change
 				}
 				
-				
-				switch(action) {
-				case 1:{	// Add a question
-					
-					Question newQuestion= view.getAnswersFromUser();
-					category.questions.add(newQuestion);
-					
-				}
-				break;
-				case 2:{
-					
-				}
-				break;
-				case 3:{	// delete a question
-					
-					UserAnswer answer = view.displayAllQuestion(questions);
-					category.questions.remove(answer.getAnswer()-1);
-					//questions.remove(answer.getAnswer()-1);
-					
-					
-				}
-				break;
-				case 0:{
-					view.displayMessage("Are you sure you want to quit? enter Enter 0 to confirm, or other value to continue.");
-					input = scan.nextInt();
-					if(input == 0) {
-							view.displayMessage("You exited admin mode");
-					}else {
-						input = -1;
+				if(input!=0) {
+					switch(action) {
+					case 1:{	// Add a question
+						
+						Question newQuestion= view.addQuestion();
+						category.questions.add(newQuestion);
+						
 					}
-					
+					break;
+					case 2:{
+						
+						UserAnswer answer = view.displayAllQuestion(questions);
+						Question questionEdit = category.questions.get(answer.getAnswer()-1);
+						view.displayMessage("Select one of the following options:");
+						view.displayQuestionMenu();
+						int adminOption = scan.nextInt();
+						
+						switch(adminOption) {
+						
+							case 1:{
+								view.displayMessage("Insert the new text for that option");
+								String text = view.getStringFromUser();
+								questionEdit.setText(text);
+							}
+							break;
+							case 2:{
+								
+								view.displayMessage("Select the answer you want to edit");
+								answer = view.getUserAnswer();
+								view.displayMessage("Insert the new text for that option");
+								String text = view.getStringFromUser();
+								questionEdit.getAnswer().get(answer.getAnswer()-1).setText(text);
+								
+							}
+							break;
+							case 3:{
+								view.displayMessage("Select the new correct answer from 1 to 4");
+								answer = view.getUserAnswer();
+								while(inputIntegerValid(answer.getAnswer(),1,4)) {
+									view.displayErrorMessage("Invalid input");
+									answer = view.getUserAnswer();
+								}
+								questionEdit.setCorrectAnswer(answer.getAnswer());
+								
+							}
+							break;
+							
+							case 0:{
+								view.displayMessage("Are you sure you want to quit? enter Enter 0 to confirm, or other value to continue.");
+								input = scan.nextInt();
+								if(input == 0) {
+										view.displayMessage("You exited");
+								}else {
+									input = -1;
+								}
+								
+							}
+							break;
+	
+						}// end switch
+						
+					}
+					break;
+					case 3:{	// delete a question
+						
+						UserAnswer answer = view.displayAllQuestion(questions);
+						category.questions.remove(answer.getAnswer()-1);
+
+					}
+					break;
+					case 0:{
+						view.displayMessage("Are you sure you want to quit? enter Enter 0 to confirm, or other value to continue.");
+						input = scan.nextInt();
+						if(input == 0) {
+								view.displayMessage("You exited admin mode");
+						}else {
+							input = -1;
+						}
+						
+					}
+					break;
+					}
+
 				}
-				break;
-				}
-				}
-				
+
+				}// end of while in admin mode
 				
 			}// end of switch of admin mode
 			break;
@@ -227,12 +273,9 @@ public class GameController {
 			break;
 			}// end of main game switch
 		}// end of big while
-			
-	
-			
-			//view.displayResume(categories, correctAnswers, incorrectAnswers);
-			
-			scan.close();
+		
+		//view.closeScanner();
+		scan.close();
 		
 	}
 
