@@ -5,7 +5,8 @@ import java.util.Scanner;
 
 public class GameView implements View {
 
-	public static Scanner scan = new Scanner(System.in);
+	public static Scanner intScan = new Scanner(System.in);
+	public static Scanner strScan = new Scanner(System.in);
 	
 	public void displayQuestion(Question question) {
 		
@@ -35,13 +36,14 @@ public class GameView implements View {
 	}
 	
 	public UserAnswer getUserAnswer() {
-		int input = scan.nextInt();
+		int input = intScan.nextInt();
 		int answer = getAnswerFromUserInput(input);
 		return new UserAnswer(answer);
 	}
 	
 	public void closeScanner() {
-		scan.close();
+		intScan.close();
+		strScan.close();
 	}
 	
 	public void displayErrorMessage(String text) {
@@ -104,7 +106,7 @@ public class GameView implements View {
 	
 	public String getStringFromUser() {
 		
-		String inputUser = scan.next();
+		String inputUser = strScan.nextLine();
 		return inputUser;
 		
 	}
@@ -115,8 +117,8 @@ public class GameView implements View {
 		List<Answer> answers = new ArrayList<>();
 		
 		displayMessage("Insert the question:");
-		String questionText = scan.next();
-		
+		String questionText = getStringFromUser();
+
 		for(int i = 1; i <= 4; i++) {
 			
 			displayMessage("Insert possible answer number "+ i);
@@ -146,7 +148,7 @@ public class GameView implements View {
 			displayMessage(i + ".- " + question.getText());
 			i++;
 		}
-		int num = Integer.parseInt(scan.next());
+		int num = intScan.nextInt();
 		UserAnswer answer = new UserAnswer(num);
 		
 		return answer;

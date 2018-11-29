@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class GameController {
 
-	public static Scanner scan = new Scanner(System.in);
+	public static Scanner intScan = new Scanner(System.in);
 	public static final View view = new GameView();
 	public static Category category = new Category();
 	public static List<Question> questions;
@@ -45,7 +45,7 @@ public class GameController {
 		while(main!=0) {
 			
 			view.displayMainMenu();
-			main = scan.nextInt();
+			main = intScan.nextInt();
 			
 			int input = -1;
 			
@@ -57,7 +57,7 @@ public class GameController {
 					
 					view.displayMessage("Choose a category to play:");
 					view.displayCategoryMenu();
-					input = scan.nextInt();
+					input = intScan.nextInt();
 					//categories = new ArrayList<>();
 						switch(input) {
 						case 1:{
@@ -79,7 +79,7 @@ public class GameController {
 						
 						case 0:{
 							view.displayMessage("Are you sure you want to quit? enter Enter 0 to confirm, or other value to continue.");
-							input = scan.nextInt();
+							input = intScan.nextInt();
 							if(input == 0) {
 								view.displayResume(categories, correctAnswers, incorrectAnswers);
 								//view.displayMessage("Bye, thanks for playing");
@@ -133,13 +133,13 @@ public class GameController {
 				view.displayMessage("Now you are in admin mode.");
 				view.displayMessage("Select one of the following options:");
 				view.displayAdminMenu();
-				int action = scan.nextInt();
+				int action = intScan.nextInt();
 				
 				if(action!=0) {
 					
 					view.displayMessage("Select the category you want to edit");
 					view.displayCategoryMenu();
-					int categoryToChange = scan.nextInt();
+					int categoryToChange = intScan.nextInt();
 					
 					switch(categoryToChange) {
 					case 1:{
@@ -160,7 +160,7 @@ public class GameController {
 					
 					case 0:{
 						view.displayMessage("Are you sure you want to quit? enter Enter 0 to confirm, or other value to continue.");
-						input = scan.nextInt();
+						input = intScan.nextInt();
 						if(input == 0) {
 								view.displayMessage("You exited");
 						}else {
@@ -185,7 +185,7 @@ public class GameController {
 						Question questionEdit = category.questions.get(answer.getAnswer()-1);
 						view.displayMessage("Select one of the following options:");
 						view.displayQuestionMenu();
-						int adminOption = scan.nextInt();
+						int adminOption = intScan.nextInt();
 						
 						switch(adminOption) {
 						
@@ -219,7 +219,7 @@ public class GameController {
 							
 							case 0:{
 								view.displayMessage("Are you sure you want to quit? enter Enter 0 to confirm, or other value to continue.");
-								input = scan.nextInt();
+								input = intScan.nextInt();
 								if(input == 0) {
 										view.displayMessage("You exited");
 								}else {
@@ -242,7 +242,7 @@ public class GameController {
 					break;
 					case 0:{
 						view.displayMessage("Are you sure you want to quit? enter Enter 0 to confirm, or other value to continue.");
-						input = scan.nextInt();
+						input = intScan.nextInt();
 						if(input == 0) {
 								view.displayMessage("You exited admin mode");
 						}else {
@@ -262,7 +262,7 @@ public class GameController {
 			
 			case 0:{
 				view.displayMessage("Are you sure you want to quit? enter Enter 0 to confirm, or other value to continue.");
-				main = scan.nextInt();
+				main = intScan.nextInt();
 				if(main == 0) {
 						view.displayMessage("Bye, thanks for playing");
 						view.displayMessage("See you in the next run");
@@ -275,7 +275,8 @@ public class GameController {
 		}// end of big while
 		
 		//view.closeScanner();
-		scan.close();
+		intScan.close();
+		view.closeScanner();
 		
 	}
 
