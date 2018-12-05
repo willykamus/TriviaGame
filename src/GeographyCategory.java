@@ -1,3 +1,7 @@
+//William Ching
+//Java Project
+//This class holds the questions for Geography Category
+
 import java.util.ArrayList;
 
 public class GeographyCategory extends Category {

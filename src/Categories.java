@@ -1,4 +1,6 @@
-
+//William Ching
+//Java Project
+//This enum is to determine the categories inside the game
 public enum Categories {
 
 	SPORTS("1.- Sports"), 
@@ -6,6 +8,7 @@ public enum Categories {
 	GEOGRAPHIC("3.- Geography"),
 	STAR_WAS("4.- Star Wars"),
 	GoT("5.- Games of Thrones"),
+	SUPERHERO("6.- Super Hero powers"),
 	EXIT("0.- Exit");
 
 	private String text;

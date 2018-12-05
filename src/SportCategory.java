@@ -1,3 +1,6 @@
+//William Ching
+//Java Project
+//This class holds the questions for Sports Category
 
 import java.util.ArrayList;
 

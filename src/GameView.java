@@ -26,6 +26,23 @@ public class GameView implements View {
 		
 	}
 	
+	public int getIntFromUser() {
+		boolean validInt = false;
+		int input = Integer.MAX_VALUE;
+		do{
+			try {
+				intScan = new Scanner(System.in);
+				input = intScan.nextInt();
+				validInt = true;
+			}catch(Exception e) {
+				displayErrorMessage("Invalid input, please insert a number");
+			}
+		}while(!validInt || input == Integer.MAX_VALUE);
+		return input;
+		
+		
+	}
+	
 	public int getAnswerFromUserInput(int userInput) {
 		try {
 			return userInput;
@@ -36,9 +53,20 @@ public class GameView implements View {
 	}
 	
 	public UserAnswer getUserAnswer() {
-		int input = intScan.nextInt();
-		int answer = getAnswerFromUserInput(input);
-		return new UserAnswer(answer);
+		boolean validInt = false;
+		int input = Integer.MAX_VALUE;
+		do {
+			try {
+				intScan = new Scanner(System.in);
+				input = intScan.nextInt();
+				validInt = true;
+			}catch(Exception e) {
+				displayErrorMessage("Invalid input, please insert a number");
+			}
+		}while(!validInt || input == Integer.MAX_VALUE);
+//		int input = intScan.nextInt();
+//		int answer = getAnswerFromUserInput(input);
+		return new UserAnswer(input);
 	}
 	
 	public void closeScanner() {
@@ -90,18 +118,20 @@ public class GameView implements View {
 	
 	public void displayResume(List<Category> categories, int correct, int wrongs) {
 		
+		int totalIncorrect = 0;
+		int totalCorrect = 0;
+		
 		for(Category category : categories) {
-			if(category.correcAnswers == 0 && category.incorrectAnswers == 0) {
-				
-			}else {
+			if(category.correcAnswers != 0 && category.incorrectAnswers != 0) {
 				System.out.println("Your result in category: " + category.category);
 				System.out.println("You got " + category.correcAnswers + " correct and " + category.incorrectAnswers + " wrong answers");
+				totalIncorrect = totalIncorrect + category.incorrectAnswers;
+				totalCorrect = totalCorrect + category.correcAnswers;
 			}
-			
 		}
 		
-		System.out.println("Your performance was: " + correct + " corrects of "+ (correct+wrongs)+" questions for a " + 
-							((correct)/(float)(correct + wrongs))*100 + "%");
+		System.out.println("Your performance was: " + totalCorrect + " corrects of "+ (totalCorrect+totalIncorrect)+" questions for a " + 
+							((totalCorrect)/(float)(totalCorrect+totalIncorrect))*100 + "%");
 	}
 	
 	public String getStringFromUser() {

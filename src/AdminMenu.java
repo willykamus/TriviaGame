@@ -1,4 +1,6 @@
-
+//William Ching
+//Java Project
+//This enum is to determine the admin menu options
 public enum AdminMenu {
 
 	OPTION1 ("1. Add a question"),

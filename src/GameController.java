@@ -1,3 +1,8 @@
+// William Ching
+// Java Project
+// This class controls the game
+
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -35,39 +40,50 @@ public class GameController {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
+		//Create an object of each category and added to the list of categories
 		categories.add(new SportCategory());
 		categories.add(new ScienceCategory());
 		categories.add(new GeographyCategory());
 		categories.add(new StarWarsCategory());
 		categories.add(new GoTCategory());
+		categories.add(new SuperHeroCategory());
 
 		view.displayMessage("Welcome to the trivia Game, select one of the following options");
 		
 		int main = -1;
 		
+		//A while to keep the user inside the game
 		while(main!=0) {
 			
 			view.displayMainMenu();
-			main = intScan.nextInt();
+			main = view.getIntFromUser();
 			
 			int input = -1;
 			
+			//This switch is for the main menu
 			switch(main) {
 			
+			//The user will play the game
 			case 1:{
 				
+				//This while will keep the user playing trivia.
 				while(input!=0){
 					
 					view.displayMessage("Choose a category to play:");
 					view.displayCategoryMenu();
-					input = intScan.nextInt();
+					input = view.getIntFromUser();
+					//input = intScan.nextInt();
 					//categories = new ArrayList<>();
+					//With this switch, first I search for the category and check if the questions for that
+					//category are inside the object. If not load them inside the objects, and inside question list
 						switch(input) {
 						case 1:{
 							category = returnCategory(categories, "Sports");
 							if(category.questions.isEmpty())
 								category.loadQuestions();
 							questions = category.questions;
+							category.correcAnswers = 0;
+							category.incorrectAnswers = 0;
 						}
 						break;
 						
@@ -76,6 +92,8 @@ public class GameController {
 							if(category.questions.isEmpty())
 								category.loadQuestions();
 							questions = category.questions;
+							category.correcAnswers = 0;
+							category.incorrectAnswers = 0;
 
 						}
 						break;
@@ -85,6 +103,8 @@ public class GameController {
 							if(category.questions.isEmpty())
 								category.loadQuestions();
 							questions = category.questions;
+							category.correcAnswers = 0;
+							category.incorrectAnswers = 0;
 
 						}
 						break;
@@ -94,6 +114,8 @@ public class GameController {
 							if(category.questions.isEmpty())
 								category.loadQuestions();
 							questions = category.questions;
+							category.correcAnswers = 0;
+							category.incorrectAnswers = 0;
 
 						}
 						break;
@@ -103,20 +125,35 @@ public class GameController {
 							if(category.questions.isEmpty())
 								category.loadQuestions();
 							questions = category.questions;
+							category.correcAnswers = 0;
+							category.incorrectAnswers = 0;
+
+						}
+						break;
+						
+						case 6:{
+							category = returnCategory(categories, "SuperHero Powers");
+							if(category.questions.isEmpty())
+								category.loadQuestions();
+							questions = category.questions;
+							category.correcAnswers = 0;
+							category.incorrectAnswers = 0;
 
 						}
 						break;
 						
 						case 0:{
 							view.displayMessage("Are you sure you want to quit? enter Enter 0 to confirm, or other value to continue.");
-							input = intScan.nextInt();
+							input = view.getIntFromUser();
 							if(input == 0) {
+								//If the user decide to quit, this show the whole result.
 								view.displayResume(categories, correctAnswers, incorrectAnswers);
 								//view.displayMessage("Bye, thanks for playing");
 								//view.displayMessage("See you in the next run");
 								//category = null;
 							}else {
 								input = -1;
+								//This set the category to null so the following step is not going to be executed.
 								category = null;
 							}
 						}
@@ -153,23 +190,25 @@ public class GameController {
 												category.incorrectAnswers +" incorrect answers");
 						}
 					
-				}// end of while
+				}// end of while for playing the game
 
 			}
 			break;
 			
-			case 2:{
+			// Admin mode
+			case 1233:{
 				while(input!=0){
 				view.displayMessage("Now you are in admin mode.");
 				view.displayMessage("Select one of the following options:");
 				view.displayAdminMenu();
-				int action = intScan.nextInt();
+				// get the user first input... 
+				int action = view.getIntFromUser();
 				
 				if(action!=0) {
 					
 					view.displayMessage("Select the category you want to edit");
 					view.displayCategoryMenu();
-					int categoryToChange = intScan.nextInt();
+					int categoryToChange = view.getIntFromUser();
 					
 					switch(categoryToChange) {
 					case 1:{
@@ -216,19 +255,41 @@ public class GameController {
 					}
 					break;
 					
+					case 6:{
+						category = returnCategory(categories, "SuperHero Powers");
+						if(category.questions.isEmpty())
+							category.loadQuestions();
+						questions = category.questions;
+
+					}
+					break;
+					
 					case 0:{
 						view.displayMessage("Are you sure you want to quit? enter Enter 0 to confirm, or other value to continue.");
-						input = intScan.nextInt();
+						input = view.getIntFromUser();
 						if(input == 0) {
 								view.displayMessage("You exited");
+								action = 0;
+								input = -1;
 						}else {
-							input = -1;
+							
+							//input = -1;
 						}
 					}
 					}// end of switch of the category the admin wants to change
+				}else {
+					view.displayMessage("Are you sure you want to quit? enter Enter 0 to confirm, or other value to continue.");
+					input = view.getIntFromUser();
+					if(input == 0) {
+							view.displayMessage("You exited admin Mode");
+							action = 0;
+					}else {
+						//input = -1;
+						
+					}
 				}
 				
-				if(input!=0) {
+				if(action!=0) {
 					switch(action) {
 					case 1:{	// Add a question
 						
@@ -243,7 +304,7 @@ public class GameController {
 						Question questionEdit = category.questions.get(answer.getAnswer()-1);
 						view.displayMessage("Select one of the following options:");
 						view.displayQuestionMenu();
-						int adminOption = intScan.nextInt();
+						int adminOption = view.getIntFromUser();
 						
 						switch(adminOption) {
 						
@@ -277,11 +338,11 @@ public class GameController {
 							
 							case 0:{
 								view.displayMessage("Are you sure you want to quit? enter Enter 0 to confirm, or other value to continue.");
-								input = intScan.nextInt();
+								input = view.getIntFromUser();
 								if(input == 0) {
 										view.displayMessage("You exited");
 								}else {
-									input = -1;
+									//input = -1; // check this 
 								}
 								
 							}
@@ -300,7 +361,7 @@ public class GameController {
 					break;
 					case 0:{
 						view.displayMessage("Are you sure you want to quit? enter Enter 0 to confirm, or other value to continue.");
-						input = intScan.nextInt();
+						input = view.getIntFromUser();
 						if(input == 0) {
 								view.displayMessage("You exited admin mode");
 						}else {
@@ -320,13 +381,17 @@ public class GameController {
 			
 			case 0:{
 				view.displayMessage("Are you sure you want to quit? enter Enter 0 to confirm, or other value to continue.");
-				main = intScan.nextInt();
+				main = view.getIntFromUser();
 				if(main == 0) {
 						view.displayMessage("Bye, thanks for playing");
 						view.displayMessage("See you in the next run");
 				}else {
 					main = -1;
 				}
+			}
+			break;
+			default:{
+				view.displayErrorMessage("Option not available");
 			}
 			break;
 			}// end of main game switch

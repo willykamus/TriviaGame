@@ -1,3 +1,7 @@
+//William Ching
+//Java Project
+//This class holds the questions for Star Wars Category
+
 import java.util.ArrayList;
 
 public class StarWarsCategory extends Category {

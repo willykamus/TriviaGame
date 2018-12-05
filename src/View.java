@@ -6,6 +6,8 @@ public interface View {
 	
 	public void displayAnswer(Answer answer);
 	
+	public int getIntFromUser();
+	
 	public UserAnswer getUserAnswer();
 	
 	public void displayErrorMessage(String text);
