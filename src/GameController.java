@@ -37,6 +37,9 @@ public class GameController {
 
 		categories.add(new SportCategory());
 		categories.add(new ScienceCategory());
+		categories.add(new GeographyCategory());
+		categories.add(new StarWarsCategory());
+		categories.add(new GoTCategory());
 
 		view.displayMessage("Welcome to the trivia Game, select one of the following options");
 		
@@ -70,6 +73,33 @@ public class GameController {
 						
 						case 2:{
 							category = returnCategory(categories, "Science");
+							if(category.questions.isEmpty())
+								category.loadQuestions();
+							questions = category.questions;
+
+						}
+						break;
+						
+						case 3:{
+							category = returnCategory(categories, "Geography");
+							if(category.questions.isEmpty())
+								category.loadQuestions();
+							questions = category.questions;
+
+						}
+						break;
+						
+						case 4:{
+							category = returnCategory(categories, "Star Wars");
+							if(category.questions.isEmpty())
+								category.loadQuestions();
+							questions = category.questions;
+
+						}
+						break;
+						
+						case 5:{
+							category = returnCategory(categories, "GoT");
 							if(category.questions.isEmpty())
 								category.loadQuestions();
 							questions = category.questions;
@@ -155,6 +185,34 @@ public class GameController {
 						if(category.questions.isEmpty())
 							category.loadQuestions();
 						questions = category.questions;
+
+					}
+					break;
+					
+					case 3:{
+						category = returnCategory(categories, "Geography");
+						if(category.questions.isEmpty())
+							category.loadQuestions();
+						questions = category.questions;
+
+					}
+					break;
+					
+					case 4:{
+						category = returnCategory(categories, "Star Wars");
+						if(category.questions.isEmpty())
+							category.loadQuestions();
+						questions = category.questions;
+
+					}
+					break;
+					
+					case 5:{
+						category = returnCategory(categories, "GoT");
+						if(category.questions.isEmpty())
+							category.loadQuestions();
+						questions = category.questions;
+
 					}
 					break;
 					
