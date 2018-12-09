@@ -178,6 +178,7 @@ public class GameView implements View {
 			displayMessage(i + ".- " + question.getText());
 			i++;
 		}
+		System.out.println("0.- Exit");
 		int num = intScan.nextInt();
 		UserAnswer answer = new UserAnswer(num);
 		

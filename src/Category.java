@@ -23,15 +23,15 @@ public class Category {
 		
 	}
 	
-	public boolean categoryCreated(List<Category> category, String categoryName) {
-		
-		for(Category cat : category) {
-			if(cat.getCategory().equals(categoryName)) {
-				return true;
-			}
-		}
-		return false;	
-	}
+//	public boolean categoryCreated(List<Category> category, String categoryName) {
+//		
+//		for(Category cat : category) {
+//			if(cat.getCategory().equals(categoryName)) {
+//				return true;
+//			}
+//		}
+//		return false;	
+//	}
 	
 	public Category returnCategory (List<Category> category, String categoryname) {
 		

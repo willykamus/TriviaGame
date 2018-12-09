@@ -197,8 +197,9 @@ public class GameController {
 			
 			// Admin mode
 			case 1233:{
-				while(input!=0){
+				
 				view.displayMessage("Now you are in admin mode.");
+				while(input!=0){
 				view.displayMessage("Select one of the following options:");
 				view.displayAdminMenu();
 				// get the user first input... 
@@ -355,8 +356,11 @@ public class GameController {
 					case 3:{	// delete a question
 						
 						UserAnswer answer = view.displayAllQuestion(questions);
-						category.questions.remove(answer.getAnswer()-1);
-
+						if(answer.getAnswer()==0) {
+							view.displayMessage("Exit");
+						}else {
+							category.questions.remove(answer.getAnswer()-1);
+						}
 					}
 					break;
 					case 0:{
