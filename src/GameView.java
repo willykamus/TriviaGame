@@ -131,7 +131,7 @@ public class GameView implements View {
 		}
 		
 		System.out.println("Your performance was: " + totalCorrect + " corrects of "+ (totalCorrect+totalIncorrect)+" questions for a " + 
-							((totalCorrect)/(float)(totalCorrect+totalIncorrect))*100 + "%");
+							((totalCorrect)/(float)(totalCorrect+totalIncorrect))*100 + "%\n");
 	}
 	
 	public String getStringFromUser() {
@@ -161,7 +161,18 @@ public class GameView implements View {
 		}
 		
 		displayMessage("Insert the number of the correct answer from 1 to 4:");
-		UserAnswer correctNewQuestion = getUserAnswer();
+		boolean flag = true;
+		UserAnswer correctNewQuestion = null;
+		
+		do {
+			correctNewQuestion = getUserAnswer();
+			if(correctNewQuestion.getAnswer()>0 && correctNewQuestion.getAnswer()<5) {
+				flag = false;
+			}else {
+				System.out.println("The answer must be between 1 and 4, please try again");
+			}
+			
+		}while(flag);
 		
 		Question newQuestion = new Question();
 		newQuestion.setText(questionText);
@@ -179,10 +190,11 @@ public class GameView implements View {
 			i++;
 		}
 		System.out.println("0.- Exit");
-		int num = intScan.nextInt();
-		UserAnswer answer = new UserAnswer(num);
-		
-		return answer;
+//		
+//		int num = intScan.nextInt();
+//		UserAnswer answer = new UserAnswer(num);
+//		
+		return getUserAnswer();
 		
 	}
 	

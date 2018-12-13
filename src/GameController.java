@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class GameController {
 
-	public static Scanner intScan = new Scanner(System.in);
+	//public static Scanner intScan = new Scanner(System.in);
 	public static final View view = new GameView();
 	public static Category category = new Category();
 	public static List<Question> questions;
@@ -40,7 +40,7 @@ public class GameController {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		//Create an object of each category and added to the list of categories
+		//**Create an object of each category and added to the list of categories
 		categories.add(new SportCategory());
 		categories.add(new ScienceCategory());
 		categories.add(new GeographyCategory());
@@ -72,11 +72,11 @@ public class GameController {
 					view.displayMessage("Choose a category to play:");
 					view.displayCategoryMenu();
 					input = view.getIntFromUser();
-					//input = intScan.nextInt();
-					//categories = new ArrayList<>();
+
 					//With this switch, first I search for the category and check if the questions for that
 					//category are inside the object. If not load them inside the objects, and inside question list
-						switch(input) {
+						
+					switch(input) {
 						case 1:{
 							category = returnCategory(categories, "Sports");
 							if(category.questions.isEmpty())
@@ -142,15 +142,19 @@ public class GameController {
 						}
 						break;
 						
+						default:{
+							view.displayErrorMessage("Option not available, try again with a value between 0 and 6");
+							category = null;
+						}
+						break;
+						
 						case 0:{
 							view.displayMessage("Are you sure you want to quit? enter Enter 0 to confirm, or other value to continue.");
 							input = view.getIntFromUser();
 							if(input == 0) {
 								//If the user decide to quit, this show the whole result.
 								view.displayResume(categories, correctAnswers, incorrectAnswers);
-								//view.displayMessage("Bye, thanks for playing");
-								//view.displayMessage("See you in the next run");
-								//category = null;
+
 							}else {
 								input = -1;
 								//This set the category to null so the following step is not going to be executed.
@@ -158,7 +162,7 @@ public class GameController {
 							}
 						}
 						break;
-						}
+					}// end of switch of categories
 						
 						//Play the chosen category
 						if(input!=0 && category!=null) {
@@ -200,83 +204,90 @@ public class GameController {
 				
 				view.displayMessage("Now you are in admin mode.");
 				while(input!=0){
-				view.displayMessage("Select one of the following options:");
-				view.displayAdminMenu();
-				// get the user first input... 
-				int action = view.getIntFromUser();
-				
-				if(action!=0) {
-					
-					view.displayMessage("Select the category you want to edit");
-					view.displayCategoryMenu();
-					int categoryToChange = view.getIntFromUser();
-					
-					switch(categoryToChange) {
-					case 1:{
-						category = returnCategory(categories, "Sports");
-						if(category.questions.isEmpty())
-							category.loadQuestions();
-						questions = category.questions;
+					view.displayMessage("Select one of the following options:");
+					view.displayAdminMenu();
+					// get the user first input... 
+					int action = view.getIntFromUser();
+					while(!inputIntegerValid(action, 0,6)) {
+						view.displayErrorMessage("Answer not Valid, please enter an answer between 0 and 3");
+						action = view.getIntFromUser();
 					}
-					break;
 					
-					case 2:{
-						category = returnCategory(categories, "Science");
-						if(category.questions.isEmpty())
-							category.loadQuestions();
-						questions = category.questions;
-
-					}
-					break;
-					
-					case 3:{
-						category = returnCategory(categories, "Geography");
-						if(category.questions.isEmpty())
-							category.loadQuestions();
-						questions = category.questions;
-
-					}
-					break;
-					
-					case 4:{
-						category = returnCategory(categories, "Star Wars");
-						if(category.questions.isEmpty())
-							category.loadQuestions();
-						questions = category.questions;
-
-					}
-					break;
-					
-					case 5:{
-						category = returnCategory(categories, "GoT");
-						if(category.questions.isEmpty())
-							category.loadQuestions();
-						questions = category.questions;
-
-					}
-					break;
-					
-					case 6:{
-						category = returnCategory(categories, "SuperHero Powers");
-						if(category.questions.isEmpty())
-							category.loadQuestions();
-						questions = category.questions;
-
-					}
-					break;
-					
-					case 0:{
-						view.displayMessage("Are you sure you want to quit? enter Enter 0 to confirm, or other value to continue.");
-						input = view.getIntFromUser();
-						if(input == 0) {
-								view.displayMessage("You exited");
-								action = 0;
-								input = -1;
-						}else {
-							
-							//input = -1;
+					if(action!=0) {
+						
+						view.displayMessage("Select the category you want to edit");
+						view.displayCategoryMenu();
+						int categoryToChange = view.getIntFromUser();
+						
+						switch(categoryToChange) {
+						case 1:{
+							category = returnCategory(categories, "Sports");
+							if(category.questions.isEmpty())
+								category.loadQuestions();
+							questions = category.questions;
 						}
-					}
+						break;
+						
+						case 2:{
+							category = returnCategory(categories, "Science");
+							if(category.questions.isEmpty())
+								category.loadQuestions();
+							questions = category.questions;
+	
+						}
+						break;
+						
+						case 3:{
+							category = returnCategory(categories, "Geography");
+							if(category.questions.isEmpty())
+								category.loadQuestions();
+							questions = category.questions;
+	
+						}
+						break;
+						
+						case 4:{
+							category = returnCategory(categories, "Star Wars");
+							if(category.questions.isEmpty())
+								category.loadQuestions();
+							questions = category.questions;
+	
+						}
+						break;
+						
+						case 5:{
+							category = returnCategory(categories, "GoT");
+							if(category.questions.isEmpty())
+								category.loadQuestions();
+							questions = category.questions;
+	
+						}
+						break;
+						
+						case 6:{
+							category = returnCategory(categories, "SuperHero Powers");
+							if(category.questions.isEmpty())
+								category.loadQuestions();
+							questions = category.questions;
+	
+						}
+						break;
+						
+						default:{
+							view.displayErrorMessage("Option not available");
+							action = 0;
+						}
+						break;
+						
+						case 0:{
+							view.displayMessage("Are you sure you want to quit? enter Enter 0 to confirm, or other value to continue.");
+							input = view.getIntFromUser();
+							if(input == 0) {
+									view.displayMessage("You exited");
+									action = 0;
+									input = -1;
+							}
+						}
 					}// end of switch of the category the admin wants to change
 				}else {
 					view.displayMessage("Are you sure you want to quit? enter Enter 0 to confirm, or other value to continue.");
@@ -284,9 +295,6 @@ public class GameController {
 					if(input == 0) {
 							view.displayMessage("You exited admin Mode");
 							action = 0;
-					}else {
-						//input = -1;
-						
 					}
 				}
 				
@@ -300,57 +308,69 @@ public class GameController {
 					}
 					break;
 					case 2:{
-						
 						UserAnswer answer = view.displayAllQuestion(questions);
-						Question questionEdit = category.questions.get(answer.getAnswer()-1);
-						view.displayMessage("Select one of the following options:");
-						view.displayQuestionMenu();
-						int adminOption = view.getIntFromUser();
-						
-						switch(adminOption) {
-						
-							case 1:{
-								view.displayMessage("Insert the new text for that option");
-								String text = view.getStringFromUser();
-								questionEdit.setText(text);
-							}
-							break;
-							case 2:{
-								
-								view.displayMessage("Select the answer you want to edit");
-								answer = view.getUserAnswer();
-								view.displayMessage("Insert the new text for that option");
-								String text = view.getStringFromUser();
-								questionEdit.getAnswer().get(answer.getAnswer()-1).setText(text);
-								
-							}
-							break;
-							case 3:{
-								view.displayMessage("Select the new correct answer from 1 to 4");
-								answer = view.getUserAnswer();
-								while(inputIntegerValid(answer.getAnswer(),1,4)) {
-									view.displayErrorMessage("Invalid input");
-									answer = view.getUserAnswer();
-								}
-								questionEdit.setCorrectAnswer(answer.getAnswer());
-								
-							}
-							break;
+						//** Check the input is inside the possible range
+						while(!inputIntegerValid(answer.getAnswer(),0,questions.size())) {
+							answer = view.displayAllQuestion(questions);
+						}
+						if(answer.getAnswer()!=0) {
+							Question questionEdit = category.questions.get(answer.getAnswer()-1);
+							view.displayMessage("Select one of the following options:");
+							view.displayQuestionMenu();
+							int adminOption = view.getIntFromUser();
 							
-							case 0:{
-								view.displayMessage("Are you sure you want to quit? enter Enter 0 to confirm, or other value to continue.");
-								input = view.getIntFromUser();
-								if(input == 0) {
-										view.displayMessage("You exited");
-								}else {
-									//input = -1; // check this 
+							switch(adminOption) {
+							
+								case 1:{
+									view.displayMessage("Insert the new text for that option");
+									String text = view.getStringFromUser();
+									questionEdit.setText(text);
 								}
+								break;
 								
-							}
-							break;
-	
-						}// end switch
-						
+								case 2:{
+									
+									view.displayMessage("Select the answer you want to edit");
+									answer = view.getUserAnswer();
+									view.displayMessage("Insert the new text for that option");
+									String text = view.getStringFromUser();
+									questionEdit.getAnswer().get(answer.getAnswer()-1).setText(text);
+									
+								}
+								break;
+								
+								case 3:{
+									view.displayMessage("Select the new correct answer from 1 to 4");
+									answer = view.getUserAnswer();
+									while(!inputIntegerValid(answer.getAnswer(),1,4)) {
+										view.displayErrorMessage("Invalid input");
+										answer = view.getUserAnswer();
+									}
+									questionEdit.setCorrectAnswer(answer.getAnswer());
+									
+								}
+								break;
+								
+								default:{
+									view.displayErrorMessage("Option not available");
+								}
+								break;
+								
+								case 0:{
+									view.displayMessage("Are you sure you want to quit? enter Enter 0 to confirm, or other value to continue.");
+									input = view.getIntFromUser();
+									if(input == 0) {
+											view.displayMessage("You exited");
+									}else {
+										//input = -1; // check this 
+									}
+								}
+								break;
+		
+							}// end switch
+						}else {
+							view.displayMessage("Exit");
+						}
 					}
 					break;
 					case 3:{	// delete a question
@@ -363,6 +383,12 @@ public class GameController {
 						}
 					}
 					break;
+					
+					default:{
+						view.displayErrorMessage("Option not available");
+					}
+					break;
+					
 					case 0:{
 						view.displayMessage("Are you sure you want to quit? enter Enter 0 to confirm, or other value to continue.");
 						input = view.getIntFromUser();
@@ -401,8 +427,7 @@ public class GameController {
 			}// end of main game switch
 		}// end of big while
 		
-		//view.closeScanner();
-		intScan.close();
+		//intScan.close();
 		view.closeScanner();
 		
 	}
